@@ -22,3 +22,14 @@ To run the code for mutation accumulation, run::
 This will perform a comparison between NextStrain database and the results 
 of our method. All the figures generated in the report are stored in the 
 figures folder inside mut_acc folder.
+
+Limiting Distribution
+--------------------------------------------------------------------------------
+To run the code for the limiting distribution section, run::
+
+        $ python -m part2
+
+This will perform the eigenvector analysis of our transition table. For more
+options when running, run::
+
+        $ python -m part2 --help

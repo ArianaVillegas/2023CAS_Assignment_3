@@ -165,8 +165,10 @@ def plot_eigenvectors(eigenvecs, **params):
 
     lim = np.max([np.abs(np.min(eigenvecs)), np.abs(np.max(eigenvecs))])
     fig, ax = plt.subplots(figsize=figsize)
-    img = ax.imshow(eigenvecs.T, vmin=-lim, vmax=lim, cmap="seismic")
+    img = ax.imshow(eigenvecs.T, interpolation="none", vmin=-lim, vmax=lim, cmap="seismic")
     fig.colorbar(img, ax=ax)
+    ax.set_xlabel("Eigenvector")
+    ax.set_ylabel("Amino acid")
     ax.set_yticks(np.arange(len(idx2aa)), idx2aa)
     ax.set_xticks(np.arange(len(idx2aa)), np.arange(len(idx2aa)))
     savefig(ax, "part2_eigenvectors", extension, do_save)
@@ -196,8 +198,8 @@ if __name__=="__main__":
     params = {}
 
     # Set Matplotlib parameters
-    plt.rcParams["font.family"] = "sans-serif"
-    plt.rcParams["font.size"] = 24
+    plt.rcParams["font.family"] = "serif"
+    plt.rcParams["font.size"] = 12
     if args.theme == "dark":
         plt.style.use("dark_background")
     factor = 8
@@ -252,11 +254,11 @@ if __name__=="__main__":
 #     ax.set_yticks(np.arange(len(idx2aa)), np.arange(len(idx2aa)))
     for i, eigendist in enumerate(eigendists):
         ax.plot(eigendist, color="tab:blue")
-        ax.text(params["n_timesteps"], eigendist[-1], f"eigenvector {i:>2d}", horizontalalignment="right", verticalalignment="bottom", fontsize="xx-small")
+        ax.text(params["n_timesteps"], eigendist[-1], f"{i:>2d}", horizontalalignment="left", verticalalignment="center", fontsize="xx-small")
 
-    ax.set_title("Change in distance from eigenvectors")
+    ax.set_title("Change in similarity to eigenvectors")
     ax.set_xlabel("Iterations")
-    ax.set_ylabel("Distance from eigenvectors")
+    ax.set_ylabel("Similarity (dot product)")
 #     ax.set_ylim([0.0, 1.3])
     savefig(ax, "part2_distance_eig", params["extension"], params["do_save"])
 
